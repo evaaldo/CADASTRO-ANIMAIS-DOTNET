@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CadastroAnimais.Context
 {
-    public class AnimaisContext : DbContext
+    public class AnimalContext : DbContext
     {
-        public AnimaisContext(DbContextOptions<AnimaisContext> options) : base(options)
+        public AnimalContext(DbContextOptions<AnimalContext> options) : base(options)
         {
 
         }
