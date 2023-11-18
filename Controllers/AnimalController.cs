@@ -45,6 +45,20 @@ namespace CadastroAnimais.Controller
             return animal;
         }
 
+        [HttpPost]
+        public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
+        {
+            if(_context.Animais == null)
+            {
+                return Problem("Construtor vazio!");
+            }
+
+            _context.Animais.Add(animal);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetAnimal", new { id = animal.ID}, animal);
+        }
+
         private bool AnimalExists(Guid id)
         {
             return(_context.Animais?.Any(animal => animal.ID == id)).GetValueOrDefault();
