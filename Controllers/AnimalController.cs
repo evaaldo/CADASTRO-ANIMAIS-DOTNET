@@ -26,6 +26,24 @@ namespace CadastroAnimais.Controller
 
             return await _context.Animais.ToListAsync();
         }
-        
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Animal>> GetAnimal(Guid id)
+        {
+            if(_context.Animais == null)
+            {
+                return NotFound();
+            }
+
+            var animal = await _context.Animais.FindAsync(id);
+
+            if(animal == null)
+            {
+                return NotFound();
+            }
+
+            return animal;
+        }
+
     }
 }
