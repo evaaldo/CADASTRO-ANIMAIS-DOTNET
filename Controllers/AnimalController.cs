@@ -45,5 +45,10 @@ namespace CadastroAnimais.Controller
             return animal;
         }
 
+        private bool AnimalExists(Guid id)
+        {
+            return(_context.Animais?.Any(animal => animal.ID == id)).GetValueOrDefault();
+        }
+
     }
 }
