@@ -59,6 +59,35 @@ namespace CadastroAnimais.Controller
             return CreatedAtAction("GetAnimal", new { id = animal.ID}, animal);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAnimal(Guid id, Animal animal)
+        {
+            if(id != animal.ID)
+            {
+                return BadRequest();
+            }
+
+            _context.Animais.Entry(animal).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException)
+            {
+                if(!AnimalExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         private bool AnimalExists(Guid id)
         {
             return(_context.Animais?.Any(animal => animal.ID == id)).GetValueOrDefault();
