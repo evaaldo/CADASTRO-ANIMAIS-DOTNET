@@ -1,5 +1,7 @@
 using CadastroAnimais.Context;
+using CadastroAnimais.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CadastroAnimais.Controller
 {
@@ -13,5 +15,17 @@ namespace CadastroAnimais.Controller
         {
             _context = context;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Animal>>> GetAnimal()
+        {
+            if(_context.Animais == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Animais.ToListAsync();
+        }
+        
     }
 }

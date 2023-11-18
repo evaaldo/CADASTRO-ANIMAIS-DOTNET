@@ -10,6 +10,6 @@ namespace CadastroAnimais.Context
 
         }
 
-        DbSet<Animal> Animais { get; set; }
+        public DbSet<Animal> Animais { get; set; }
     }
 }
