@@ -88,6 +88,27 @@ namespace CadastroAnimais.Controller
             return NoContent();
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAnimal(Guid id)
+        {
+            if(_context.Animais == null)
+            {
+                return NotFound();
+            }
+
+            var animal = await _context.Animais.FindAsync(id);
+
+            if(animal == null)
+            {
+                return NotFound();
+            }
+
+            _context.Animais.Remove(animal);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
         private bool AnimalExists(Guid id)
         {
             return(_context.Animais?.Any(animal => animal.ID == id)).GetValueOrDefault();
